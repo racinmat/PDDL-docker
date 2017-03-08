@@ -1,0 +1,3 @@
+#! /bin/bash
+cd ./probe
+./plan ../$1 ../$2 ../$3

@@ -1,0 +1,6 @@
+#! /bin/bash
+ulimit -v 500000
+
+cd ~/planners/FD
+
+timeout 15m ./plan-ms  $1  $2  $3

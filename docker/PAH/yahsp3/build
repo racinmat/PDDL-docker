@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd cpt-yahsp
+./distclean
+./build_gcc_linux_release cpt_yahsp

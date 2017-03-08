@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+rm -rf debug
+rm -rf release
+rm -rf scc

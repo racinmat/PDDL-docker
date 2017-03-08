@@ -1,0 +1,35 @@
+{
+  "name": "planner-in-the-cloud",
+  "version": "0.0.1",
+  "description": "Planning Solver API.",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:planning-researchers/cloud-solver.git"
+  },
+  "keywords": [
+    "pddl",
+    "planning",
+    "planner",
+    "solver"
+  ],
+  "author": "Christian Muise",
+  "license": "GPLv3",
+  "engines": {
+    "node": "0.10.29"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.0",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "express-method-override": "0.0.3",
+    "memwatch": "^0.2.2",
+    "morgan": "^1.6.1",
+    "request": "^2.60.0",
+    "tmp": "0.0.26"
+  }
+}

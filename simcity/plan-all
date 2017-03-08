@@ -1,0 +1,10 @@
+#! /bin/bash
+
+plan $1 simple p01 $2
+plan $1 simple p02 $2
+plan $1 extended p01 $2
+plan $1 extended p02 $2
+plan $1 cost p01 $2
+plan $1 cost p02 $2
+
+echo "done"

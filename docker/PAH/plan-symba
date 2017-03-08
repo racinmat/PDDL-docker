@@ -1,0 +1,3 @@
+#! /bin/bash
+cd ./symba-2
+./plan ../$1 ../$2 ../$3

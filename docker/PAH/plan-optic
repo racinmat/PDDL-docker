@@ -1,0 +1,2 @@
+#! /bin/bash
+./optic-clp -N $1 $2 

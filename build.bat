@@ -1,0 +1,1 @@
+docker build -f docker/64bit/Dockerfile -t pddl .

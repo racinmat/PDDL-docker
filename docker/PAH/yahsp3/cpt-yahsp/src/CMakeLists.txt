@@ -1,0 +1,127 @@
+BISON_TARGET(Parser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.cpp)
+FLEX_TARGET(Scanner parser.lex ${CMAKE_CURRENT_BINARY_DIR}/parser.yy.cpp)
+ADD_FLEX_BISON_DEPENDENCY(Scanner Parser)
+
+SET(SOURCES
+  ${BISON_Parser_OUTPUTS} 
+  ${FLEX_Scanner_OUTPUTS}
+  pddl.cpp
+  instantiation.cpp
+  var.cpp
+  options.cpp
+  max_atom.cpp
+  problem.cpp
+  plan.cpp
+  preprocess.cpp
+  propagations.cpp
+  resources.cpp
+  scheduling.cpp
+  heuristics.cpp
+  branching.cpp
+  trace_planner.cpp
+  dae.cpp
+  solve.cpp
+  )
+
+SET(SEQ_SOURCES yahsp-common.cpp yahsp-seq.cpp)
+SET(MT_SOURCES yahsp-common.cpp yahsp-mt.cpp)
+SET(MPI_SOURCES yahsp-mpi.cpp)
+SET(DAE_SOURCES yahsp-dae.cpp)
+
+if (SCC)
+  SET(SCC_C_FLAGS "-DSCC")
+endif()
+
+if (OPENMP_FOUND)
+  SET(OPENMP_C_FLAGS " -DYAHSP_MT ${OpenMP_C_FLAGS}")
+endif()
+
+LINK_LIBRARIES(gdsl gmp rt)
+
+if( CPT_WITH_NOOMP )
+
+  ADD_LIBRARY(${PROJECT_NAME}-common STATIC ${SOURCES})
+  ADD_LIBRARY(${PROJECT_NAME} STATIC ${SEQ_SOURCES})
+
+  SET_TARGET_PROPERTIES(
+    ${PROJECT_NAME}-common
+    ${PROJECT_NAME}
+    PROPERTIES
+    COMPILE_FLAGS "${SCC_C_FLAGS}"
+    )
+
+endif()
+
+if (MPI_FOUND)
+
+  ADD_LIBRARY(${PROJECT_NAME}-common-mpi STATIC ${SOURCES})
+  ADD_LIBRARY(${PROJECT_NAME}-mpi STATIC ${MT_SOURCES} ${MPI_SOURCES} ${MPI_LIBRARIES})
+
+  INCLUDE_DIRECTORIES(${MPI_INCLUDE_PATH})
+
+  SET_TARGET_PROPERTIES(
+    ${PROJECT_NAME}-common-mpi
+    ${PROJECT_NAME}-mpi
+    PROPERTIES
+    COMPILE_FLAGS "-DYAHSP_MPI ${SCC_C_FLAGS} ${OPENMP_C_FLAGS} ${MPI_COMPILE_FLAGS}"
+    LINK_FLAGS "${MPI_LINK_FLAGS}"
+    )
+
+endif()
+
+IF( CPT_WITH_DAE )
+
+  ADD_LIBRARY(${PROJECT_NAME}-common-dae STATIC ${SOURCES})
+  SET_TARGET_PROPERTIES(
+    ${PROJECT_NAME}-common-dae
+    PROPERTIES 
+    COMPILE_FLAGS "-DDAE"
+    )
+
+  ADD_LIBRARY(${PROJECT_NAME}-dae STATIC ${SEQ_SOURCES} ${DAE_SOURCES})
+  SET_TARGET_PROPERTIES(
+    ${PROJECT_NAME}-dae
+    PROPERTIES 
+    COMPILE_FLAGS "-DDAE"
+    )
+
+endif()
+
+if (OPENMP_FOUND)
+
+  ADD_LIBRARY(${PROJECT_NAME}-common-omp STATIC ${SOURCES})
+  ADD_LIBRARY(${PROJECT_NAME}-mt STATIC ${MT_SOURCES})
+
+  SET_TARGET_PROPERTIES(
+    ${PROJECT_NAME}-common-omp
+    ${PROJECT_NAME}-mt
+    PROPERTIES
+    COMPILE_FLAGS "${OpenMP_C_FLAGS} -DYAHSP_MT"
+    )
+
+  IF( CPT_WITH_DAE )
+
+    ADD_LIBRARY(${PROJECT_NAME}-common-dae-omp STATIC ${SOURCES})
+    ADD_LIBRARY(${PROJECT_NAME}-dae-sm STATIC ${SEQ_SOURCES} ${DAE_SOURCES})
+    ADD_LIBRARY(${PROJECT_NAME}-dae-mt STATIC ${SOURCES} ${MT_SOURCES} ${DAE_SOURCES})
+    SET_TARGET_PROPERTIES(
+      ${PROJECT_NAME}-common-dae-omp
+      PROPERTIES 
+      COMPILE_FLAGS "${OpenMP_C_FLAGS} -DDAE"
+      )
+
+    SET_TARGET_PROPERTIES(
+      ${PROJECT_NAME}-dae-mt
+      PROPERTIES 
+      COMPILE_FLAGS "${OpenMP_C_FLAGS} -DDAE -DYAHSP_MT -DSHARED_MEMOIZATION"
+      )
+
+    SET_TARGET_PROPERTIES(
+      ${PROJECT_NAME}-dae-sm
+      PROPERTIES
+      COMPILE_FLAGS "${OpenMP_C_FLAGS} -DDAE -DSHARED_MEMOIZATION"
+      )
+
+  endif()
+
+endif()

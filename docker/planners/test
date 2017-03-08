@@ -1,0 +1,19 @@
+#! /bin/bash
+echo "fd-fdss"
+./plan-fd-fdss ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-fd-fdss > ./log-fd-fdss
+echo "fd-lmcut"
+./plan-fd-lmcut ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-fd-lmcut > ./log-fd-lmcut
+echo "fd-ms"
+./plan-fd-ms ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-fd-ms > ./log-fd-ms
+echo "ff"
+./plan-ff ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-ff > ./log-ff
+echo "lama"
+./plan-lama ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-lama > ./log-lama
+echo "mercury"
+./plan-mercury ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-mercury > ./log-mercury
+echo "probe"
+./plan-probe ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-probe > ./log-probe
+echo "symba"
+./plan-symba ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-symba > ./log-symba
+echo "yahsp3"
+./plan-yahsp3 ./benchmarks/logistics00/domain.pddl ./benchmarks/logistics00/probLOGISTICS-4-1.pddl ./out-yahsp3 > ./log-yahsp3

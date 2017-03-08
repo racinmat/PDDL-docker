@@ -1,0 +1,19 @@
+#! /bin/bash
+echo "fd-fdss"
+./plan-fd-fdss $1 $2 $3/out-fd-fdss > $3/log-fd-fdss
+echo "fd-lmcut"
+./plan-fd-lmcut $1 $2 $3/out-fd-lmcut > $3/log-fd-lmcut
+echo "fd-ms"
+./plan-fd-ms $1 $2 $3/out-fd-ms > $3/log-fd-ms
+echo "ff"
+./plan-ff $1 $2 $3/out-ff > $3/log-ff
+echo "lama"
+./plan-lama $1 $2 $3/out-lama > $3/log-lama
+echo "mercury"
+./plan-mercury $1 $2 $3/out-mercury > $3/log-mercury
+echo "probe"
+./plan-probe $1 $2 $3/out-probe > $3/log-probe
+echo "symba"
+./plan-symba $1 $2 $3/out-symba > $3/log-symba
+echo "yahsp3"
+./plan-yahsp3 $1 $2 $3/out-yahsp3 > $3/log-yahsp3
