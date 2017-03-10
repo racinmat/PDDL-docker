@@ -1,6 +1,6 @@
 #! /bin/bash
-planroot=/opt/PAH	#if used on different machine, change the planroot folder o the folder with planners
-#planroot=~/planners
+#planroot=/opt/PAH	#if used on different machine, change the planroot folder o the folder with planners
+planroot=~/planners
 
 if [ "$#" -ne 4 ]; then
     echo "usage: plan <ff|fd-fdss|fd-ms|fd-lmcut|lama|mercury|probe|symba|yahsp3> <simple|cost|extended> <p01|p02> <timeout(e.g. '10m')>"

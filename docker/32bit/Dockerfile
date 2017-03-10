@@ -2,9 +2,9 @@ FROM ggrandes/ubuntu32:12.04
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-COPY ./docker/PAH /opt/PAH
-COPY ./simcity /root/planners
-COPY ./docker/cloud /opt/PAH/cloud
+COPY ./docker/PAH /root/planners
+COPY ./simcity /root/simcity
+COPY ./docker/cloud /root/planners/cloud
 
 RUN apt-get update && \
     apt-get install sudo && \
