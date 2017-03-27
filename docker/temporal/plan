@@ -1,0 +1,2 @@
+#!/bin/bash
+timeout 10 "$(dirname "$0")"/optic-clp -N $1 $2

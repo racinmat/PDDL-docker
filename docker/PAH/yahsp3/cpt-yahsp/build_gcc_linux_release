@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-mkdir -p release
-cd release
-cmake -DCMAKE_BUILD_TYPE=Release -D SCC=OFF -D CPT_WITH_NOOMP=ON -D CPT_WITH_OMP=OFF -D CPT_WITH_DAE=OFF ..
-make $*
-cd ..

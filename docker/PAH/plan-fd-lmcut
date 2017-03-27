@@ -1,3 +1,0 @@
-#! /bin/bash
-cd ./FD
-./plan-lmcut ../$1 ../$2 ../$3

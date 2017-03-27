@@ -1,1 +1,0 @@
-/usr/bin/c++   -O2    CMakeFiles/cpt_yahsp.dir/main.cpp.o  -o ../../cpt_yahsp -rdynamic ../../lib/libcpt_yahsp_library-common.a ../../lib/libcpt_yahsp_library.a ../../lib/libgdsl.a -lgmp -lrt 

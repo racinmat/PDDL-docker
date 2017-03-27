@@ -1,6 +1,8 @@
 #! /bin/bash
-ulimit -v 500000
-
 cd ~/planners/probe
 
 timeout 15m ./plan  $1  $2  $3
+
+LIST=`exec ls ${3}.* | sed 's/.*\.\([0-9]\+\)/\1/g' | tr '\n' ' ' | sed 's/ //g'`
+H=`printf ${3}.%1d ${LIST[ $(( ${#LIST} - 1 )) ]}`
+mv $H $3

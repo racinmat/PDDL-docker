@@ -1,0 +1,1 @@
+docker build -f docker/temporal-docker/Dockerfile -t pddl-temporal .

@@ -15,7 +15,9 @@ RUN apt-get update && \
       curl \
       git \
       lsb-release \
-      python-all
+      python-all \
+      time \
+      gawk
 
 RUN curl -sL https://deb.nodesource.com/setup | bash -
 RUN apt-get update

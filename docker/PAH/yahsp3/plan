@@ -1,3 +1,0 @@
-#!/bin/bash
-
-./cpt-yahsp/release/cpt_yahsp -y 1 -o "$1" -f "$2" -out "$3"

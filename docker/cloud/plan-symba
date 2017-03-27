@@ -1,6 +1,4 @@
 #! /bin/bash
-ulimit -v 500000
-
 cd ~/planners/symba-2
 
 timeout 15m ./plan  $1  $2  $3

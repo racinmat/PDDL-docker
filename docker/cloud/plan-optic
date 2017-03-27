@@ -1,3 +1,2 @@
 #!/bin/bash
-ulimit -v 500000
 timeout 15m "$(dirname "$0")"/optic-clp  -N $1 $2

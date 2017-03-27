@@ -1,4 +1,0 @@
-/home/stolba/planners/PAH2014_local/yahsp3/cpt-yahsp/release/application/cpt-yahsp/CMakeFiles/cpt_yahsp.dir
-/home/stolba/planners/PAH2014_local/yahsp3/cpt-yahsp/release/src/CMakeFiles/cpt_yahsp_library.dir
-/home/stolba/planners/PAH2014_local/yahsp3/cpt-yahsp/release/src/CMakeFiles/cpt_yahsp_library-common.dir
-/home/stolba/planners/PAH2014_local/yahsp3/cpt-yahsp/release/gdsl/src/CMakeFiles/gdsl.dir

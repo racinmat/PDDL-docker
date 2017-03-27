@@ -1,9 +1,0 @@
-#!/bin/bash
-cd src/parser-ff
-make clean
-make depend
-make
-cd ../..
-scons --clean
-scons
-

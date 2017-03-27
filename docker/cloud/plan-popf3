@@ -1,3 +1,2 @@
 #!/bin/bash
-ulimit -v 500000
 timeout 15m "$(dirname "$0")"/popf3-clp  $1 $2 $3

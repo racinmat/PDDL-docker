@@ -1,2 +1,0 @@
-#! /bin/bash
-"$(dirname "$0")"/src/fast-downward.py --alias seq-opt-lmcut --plan-file $3 $1 $2 

@@ -1,6 +1,4 @@
 #! /bin/bash
-ulimit -v 500000
-
 cd ~/planners/FF
 
 timeout 15m ./plan  $1  $2  $3

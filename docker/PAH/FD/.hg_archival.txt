@@ -1,5 +1,0 @@
-repo: 875fe8fa322a09154e7c39371c8fc3921e36d73d
-node: fac455fd571d7bce548ff93804875873cc32ecb7
-branch: default
-latesttag: issue269-v1
-latesttagdistance: 11

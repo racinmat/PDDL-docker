@@ -1,2 +1,0 @@
-#! /bin/bash
-../FD/src/fast-downward.py --alias seq-sat-lama-2011 --plan-file $3 $1 $2

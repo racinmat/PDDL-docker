@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../lib/libcpt_yahsp_library.a  CMakeFiles/cpt_yahsp_library.dir/yahsp-common.cpp.o CMakeFiles/cpt_yahsp_library.dir/yahsp-seq.cpp.o
-/usr/bin/ranlib ../lib/libcpt_yahsp_library.a

@@ -1,6 +1,4 @@
 #! /bin/bash
-ulimit -v 500000
-
 cd ~/planners/FD
 
 timeout 15m ./plan-lmcut  $1  $2  $3
