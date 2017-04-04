@@ -88,7 +88,8 @@ Manually
 1. Type `docker ps`, this shows you running processes. At the end, you can see name of each running container. 
 Name of container is always two words in snake case. For example `mystifying_shirley`.
 2. Find name of container you want to kill.
-3. Type `docker kill [name]`.  Fo example: `docker kill mystifying_shirley`
+3. Type `docker kill [name]`.  
+For example: `docker kill mystifying_shirley`
   
 Automatically, using script  
 I will show that on script killing container with temporal solver.
