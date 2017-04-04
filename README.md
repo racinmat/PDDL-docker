@@ -117,4 +117,4 @@ Use `:condition` instead of `:precondition` in `durative-action` definition.
 Now you are fucked. Doomed. The end.
 
 ### I can not run docker container, it says: `docker: Error response from daemon: driver failed programming external connectivity...`
-Another container is already running on the same port. Firstly, you must kill current container. See [Killing running container](#Killing running container)
+Another container is already running on the same port. Firstly, you must kill current container. See [Killing running container](#killing-running-container)
