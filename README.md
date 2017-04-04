@@ -114,8 +114,13 @@ Run solver in command line, it is more verbose and tells you which row is wrong.
 #### Temporal actions do not work
 Use `:condition` instead of `:precondition` in `durative-action` definition.
 
-### I get Segmentation fault in temporal solver
+#### I get Segmentation fault in temporal solver
 Now you are fucked. Doomed. The end.
 
-### I can not run docker container, it says: `docker: Error response from daemon: driver failed programming external connectivity...`
+#### I can not run docker container, it says: `docker: Error response from daemon: driver failed programming external connectivity...`
 Another container is already running on the same port. Firstly, you must kill current container. See [Killing running container](#killing-running-container)
+
+#### Where do I get temporal planner output and how to visualize it?
+1. In web editor, install Timeline Viewer by clicking `Plugins` and then `Install` in row with Timeline Viewer (obviously)
+2. Copy output of temporal planner. To get it, click tab with plan and then `output`, copy the output.
+3. Click tab with Timeline Viewer and paste the plan output there. It should immediately visualize the timeline of found plan.
