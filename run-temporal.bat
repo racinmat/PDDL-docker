@@ -1,1 +1,1 @@
-docker run -p 5001:5001 -t pddl-temporal
+docker run -p 5001:5001 -t azathoth/pddl-temporal
