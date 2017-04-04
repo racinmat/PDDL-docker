@@ -70,6 +70,7 @@ Examples:
     Run temporal solver by:  
     `cd ~/planners/temporal`  
     `./optic-clp -N /opt/plan/temporal/domain.pddl /opt/plan/temporal/p01.pddl`
+    Other solvers can be found in directory `~/planners`
 
 ## Killing running container
 Manually  
@@ -121,3 +122,6 @@ You can have this predicate as precondition to these action, remove this predica
 
 #### Solver does not tell me what is wrong
 Try another solver. Different solvers are verbose for different kinds of errors.
+
+#### Temporal solver runs too long
+Try to set longer duration in frequent actions with short duration. Setting e.g. 0.3 instead of 0.1 to vehicle boarding action makes solving many times faster.
