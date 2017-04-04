@@ -11,22 +11,16 @@ This should work for every OS (Windows, Mac OS, Linux...)
 #### For free ports 5000 and 5001:
 3. Run download and run image with all **classical planners** by this command `docker run -p 500:5000 -t azathoth/pddl`  
 4. Run download and run image with **temporal planner** by this command `docker run -p 5001:5001 -t azathoth/pddl-temporal`  
-5. Check that both containers run and web servers work correctly by visiting addresses
-    - http://localhost:5000/test  
-    - http://localhost:5001/test
-6. Use address http://localhost:5000/[planner] as address of your local solver in the web editor.
-Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba].  
-7. Use address http://localhost:5001 as address of your local **temporal** solver in the web editor.
+5. Use address http://localhost:5000/[planner] as address of your local solver in the web editor.
+Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba|metricff].  
+6. Use address http://localhost:5001 as address of your local **temporal** solver in the web editor.
 
 #### For other free ports:  
 3. Run download and run image with all **classical planners** by this command `docker run -p [free port 1]:5000 -t azathoth/pddl`  
 4. Run download and run image with **temporal planner** by this command `docker run -p [free port 2]:5001 -t azathoth/pddl-temporal`  
-5. Check that both containers run and web servers work correctly by visiting addresses
-    - http://localhost:[free port 1]/test  
-    - http://localhost:[free port 2]/test
-6. Use address http://localhost:[free port 1]/[planner] as address of your local solver in the web editor.
+5. Use address http://localhost:[free port 1]/[planner] as address of your local solver in the web editor.
 Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba].  
-7. Use address http://localhost:[free fort 2] as address of your local **temporal** solver in the web editor.
+6. Use address http://localhost:[free fort 2] as address of your local **temporal** solver in the web editor.
 
 Examples: 
  - For basic planner and port 5000, the address is http://localhost:5000/ff
@@ -38,18 +32,12 @@ Examples:
 3. Check if the ports 5000 and 5001 is unused. If ports 5000 and 5001 are used, choose other free ports.  
 4. Run download and run image with all **classical planners** by this command `docker run -p [free port 1]:5000 -t azathoth/pddl`
 5. Run download and run image with **temporal planner** by this command `docker run -p [free port 2]:5001 -t azathoth/pddl-temporal`  
-6. Check that both containers run and web servers work correctly by visiting addresses
-    - http://[docker ip]:[free port 1]/test  
-    - http://[docker ip]:[free port 2]/test  
-7. Use address http://[docker ip]:[free port 1]/[planner] as address of your local solver in the web editor.
-8. Use address http://localhost:[free fort 2] as address of your local **temporal** solver in the web editor.
+6. Use address http://[docker ip]:[free port 1]/[planner] as address of your local solver in the web editor.
+7. Use address http://localhost:[free fort 2] as address of your local **temporal** solver in the web editor.
 Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba].  
 Examples: 
      - For docker ip 192.168.1.10, port 5000 and basic planner, the address is http://192.168.1.10:5000/ff
      - For docker ip 192.168.1.10, port 5001 and temporal planner, the address is http://192.168.1.10:5001
-
-The test website of correctly running server should look like this:
-![running server](https://raw.githubusercontent.com/racinmat/pddl-docker/master/test.png)
 
 ## Running solvers from command line
 1.  Instead of running docker image by `docker run -p 5001:5001 -t azathoth/pddl-temporal`, use additional option `-v host_path:guest_path`.  
@@ -114,8 +102,8 @@ Run solver in command line, it is more verbose and tells you which row is wrong.
 #### Temporal actions do not work
 Use `:condition` instead of `:precondition` in `durative-action` definition.
 
-#### I get Segmentation fault in temporal solver
-Now you are fucked. Doomed. The end.
+#### I get Segmentation fault
+You have too large problem, try to remove some objects from it to reduce it.
 
 #### I can not run docker container, it says: `docker: Error response from daemon: driver failed programming external connectivity...`
 Another container is already running on the same port. Firstly, you must kill current container. See [Killing running container](#killing-running-container)
@@ -124,3 +112,12 @@ Another container is already running on the same port. Firstly, you must kill cu
 1. In web editor, install Timeline Viewer by clicking `Plugins` and then `Install` in row with Timeline Viewer (obviously)
 2. Copy output of temporal planner. To get it, click tab with plan and then `output`, copy the output.
 3. Click tab with Timeline Viewer and paste the plan output there. It should immediately visualize the timeline of found plan.
+
+#### Temporal solution looks weird, person leaves work before getting it done...
+Check if `at start`, `at end` and `over all` are correctly used. 
+Use predicated to "lock" people in some action.  
+For example: predicate `not_working`can be used to check that people are not working when walking or boarding vehicles. 
+You can have this predicate as precondition to these action, remove this predicate at start of work and add it at end of work. 
+
+#### Solver does not tell me what is wrong
+Try another solver. Different solvers are verbose for different kinds of errors.
