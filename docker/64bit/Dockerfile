@@ -6,7 +6,8 @@ COPY ./docker/cloud /root/planners/cloud
 COPY ./docker/entrypoint.sh /root/entrypoint.sh
 
 RUN chmod +x /root/entrypoint.sh && \
-    dos2unix /root/entrypoint.sh
+    dos2unix /root/entrypoint.sh && \
+    dos2unix /root/planners/plan-siw
 
 RUN apt-get update && \
     apt-get install -y --force-yes \

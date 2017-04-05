@@ -1,5 +1,8 @@
 # PDDL task - docker Images & FAQ
 
+In this readme, I suggest you to create some simple scripts which helps you with handling the docker container or running the planners.
+ All scripts presented are available this repository, so you can download them from here. 
+ 
 ## Installing docker images and running docker containers for PDDL solvers
 
 This should work for every OS (Windows, Mac OS, Linux...)  
@@ -9,7 +12,7 @@ This should work for every OS (Windows, Mac OS, Linux...)
 2. Check if the ports 5000 and 5001 is unused. If ports 5000 and 5001 are used, choose other free ports.  
 
 #### For free ports 5000 and 5001:
-3. Run download and run image with all **classical planners** by this command `docker run -p 500:5000 -t azathoth/pddl`  
+3. Run download and run image with all **classical planners** by this command `docker run -p 5000:5000 -t azathoth/pddl`  
 4. Run download and run image with **temporal planner** by this command `docker run -p 5001:5001 -t azathoth/pddl-temporal`  
 5. Use address http://localhost:5000/[planner] as address of your local solver in the web editor.
 Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba|metricff].  
@@ -19,7 +22,7 @@ Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba|me
 3. Run download and run image with all **classical planners** by this command `docker run -p [free port 1]:5000 -t azathoth/pddl`  
 4. Run download and run image with **temporal planner** by this command `docker run -p [free port 2]:5001 -t azathoth/pddl-temporal`  
 5. Use address http://localhost:[free port 1]/[planner] as address of your local solver in the web editor.
-Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba].  
+Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba|metricff].  
 6. Use address http://localhost:[free fort 2] as address of your local **temporal** solver in the web editor.
 
 Examples: 
@@ -34,7 +37,7 @@ Examples:
 5. Run download and run image with **temporal planner** by this command `docker run -p [free port 2]:5001 -t azathoth/pddl-temporal`  
 6. Use address http://[docker ip]:[free port 1]/[planner] as address of your local solver in the web editor.
 7. Use address http://localhost:[free fort 2] as address of your local **temporal** solver in the web editor.
-Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba].  
+Possible planners to use are [ff|siw|lama|mercury|probe|yahsp3|ms|lmcut|symba|metricff].  
 Examples: 
      - For docker ip 192.168.1.10, port 5000 and basic planner, the address is http://192.168.1.10:5000/ff
      - For docker ip 192.168.1.10, port 5001 and temporal planner, the address is http://192.168.1.10:5001
@@ -50,21 +53,38 @@ Examples:
     ```
     Now you started container with mounted directory with domains and problems.  
 
-2.  Now, open new cmd window and attach to running container, to use bash in this container.
-    It is very convenient to create scripts for attaching to running container:
+2.  Now, you need to get to the container so you can run scripts there. To get to the container, you need to attach to it.
+    Let's create a scripts which attaches us to running container, 
+    we will have one script for attaching to container with classical solvers, and one script for attaching to container with temporal solver:
+    Classical planners:
     - Windows:  
-        - Create file `kill-temporal.bat` with content  
+        - Create file `attach.bat` with content  
+        ```
+        FOR /F "tokens=*" %%i IN ('docker ps -qf "ancestor=azathoth/pddl" ') DO SET TEMPORAL_ID=%%i
+        docker exec -it %TEMPORAL_ID% bash
+        ```
+    - Linux: 
+        - Create file `attach.sh` with content  
+        ```
+        #!/bin/bash  
+        docker exec -it $(docker ps -qf "ancestor=azathoth/pddl" ) bash
+        ```
+
+    Temporal planner:
+    - Windows:  
+        - Create file `attach-temporal.bat` with content  
         ```
         FOR /F "tokens=*" %%i IN ('docker ps -qf "ancestor=azathoth/pddl-temporal" ') DO SET TEMPORAL_ID=%%i
         docker exec -it %TEMPORAL_ID% bash
         ```
     - Linux: 
-        - Create file `kill-temporal.sh` with content  
+        - Create file `attach-temporal.sh` with content  
         ```
         #!/bin/bash  
         docker exec -it $(docker ps -qf "ancestor=azathoth/pddl-temporal" ) bash
         ```
-    When you run the script above, it mounts you to running container.
+        
+    Then, you simply run the script and it mounts you to running container.
 
 3.  Now, you are in bash in running linux container, so it behaves as ordinary linux OS.
     Run temporal solver by:  
@@ -80,8 +100,22 @@ Name of container is always two words in snake case. For example `mystifying_shi
 3. Type `docker kill [name]`.  
 For example: `docker kill mystifying_shirley`
   
-Automatically, using script  
-I will show that on script killing container with temporal solver.
+Automatically, using scripts:  
+Following scripts kill container with classical solvers:
+- Windows:  
+  - Create file `kill.bat` with content  
+    ```
+    FOR /F "tokens=*" %%i IN ('docker ps -qf "ancestor=azathoth/pddl" ') DO SET TEMPORAL_ID=%%i 
+    docker kill %TEMPORAL_ID%
+    ```
+- Linux: 
+  - Create file `kill.sh` with content  
+    ```
+    #!/bin/bash  
+    docker stop $(docker ps -qf "ancestor=azathoth/pddl" )
+    ```
+ 
+Following scripts kill container with temporal solver:
 - Windows:  
   - Create file `kill-temporal.bat` with content  
     ```
@@ -127,13 +161,16 @@ Try another solver. Different solvers are verbose for different kinds of errors.
 Try to set longer duration in frequent actions with short duration. Setting e.g. 0.3 instead of 0.1 to vehicle boarding action makes solving many times faster.
 
 #### Optimal planners can not parse domain or problem file when run from command line
-Probably your files start with BOM. To remove it, run this script:
+Probably your files start with BOM or have windows line endings.
+ 
+To remove it, run this script **inside the docker container**:
 ```
 #!/bin/bash
 
 # this line removes BOM from all pddl files
-find . -name *.pddl | while read l; do sed -i '1 s/^\xef\xbb\xbf//'  $l; done
+find /opt/plan -name "*.pddl" | while read l; do sed -i '1 s/^\xef\xbb\xbf//'  $l; done
 ```
+In the script sbove, I assume you have your pddl files in directory `/opt/plan`
 
 #### I can not run siw, because it is not supported by provided plan script
 Run it by this commands:
