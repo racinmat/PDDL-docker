@@ -161,7 +161,7 @@ Try another solver. Different solvers are verbose for different kinds of errors.
 Try to set longer duration in frequent actions with short duration. Setting e.g. 0.3 instead of 0.1 to vehicle boarding action makes solving many times faster.
 
 #### Optimal planners can not parse domain or problem file when run from command line
-Probably your files start with BOM or have windows line endings.
+Probably your files start with BOM or have dos line endings. That happens when you download files from web editor.
  
 To remove it, run this script **inside the docker container**:
 ```
@@ -189,3 +189,11 @@ cd /opt/plan
 
 Note that siw and metricff also work, even when they are not listed in the help of plan script.
 Plan-all runs all problems with particular planner.
+
+How to run temporal solver:
+```
+cd /opt/plan
+./plan optic temporal p01 20m
+./plan optic temporal p02 20m
+```
+
