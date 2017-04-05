@@ -1,8 +1,8 @@
 # PDDL task - docker Images & FAQ
 
-In this readme, I suggest you to create some simple scripts which helps you with handling the docker container or running the planners.
- All scripts presented are available this repository, so you can download them from here. 
- 
+In this readme, I suggest you to create some simple scripts which helps you with handling the docker container or running the planners.  
+All scripts presented are available this repository, so you can download them from here. 
+
 ## Installing docker images and running docker containers for PDDL solvers
 
 This should work for every OS (Windows, Mac OS, Linux...)  
@@ -168,19 +168,24 @@ To remove it, run this script **inside the docker container**:
 #!/bin/bash
 
 # this line removes BOM from all pddl files
-find /opt/plan -name "*.pddl" | while read l; do sed -i '1 s/^\xef\xbb\xbf//'  $l; done
-```
-In the script sbove, I assume you have your pddl files in directory `/opt/plan`
+find /opt/plan -name "*.pddl" | while read l; do sed -i '1 s/^\xef\xbb\xbf//'  $l; dos2unix $l; echo $l; done
 
-#### I can not run siw, because it is not supported by provided plan script
-Run it by this commands:
 ```
-cd ~/planners/cloud
-./siw-then-bfsf --domain relative_path_to_domain --problem relative_path_to_problem --output relative_path_to_solution_file > log_file
+In the script above, I assume you have your pddl files in directory `/opt/plan`
+This script prints all pddl files it finds. If it does not print anything, it means it did not find any .pddl file.  
+In that case, modify the script to find files in the location where you store them.
+
+The whole script is in this repository, and you can see it [here](https://github.com/racinmat/PDDL-docker/blob/master/repair_files.sh)
+
+#### How to run scripts from command line
+In the template, scripts `plan` and `plan-all` are provided.
+To use `plan`, go to directory where it is and then run it, in example case: 
 ```
-DO not forget to provide relative paths to your files.
-For example, for file structure from template and files in /opt/plan directory, and running simple problem, commands are:
+cd /opt/plan
+./plan ff simple p01 20m
+./plan siw extended p01 20m
+./plan metricff cost p02 20m
 ```
-cd ~/planners/cloud
-./siw-then-bfsf --domain ../../../opt/plan/simple/domain.pddl --problem ../../../opt/plan/simple/p01.pddl --output ../../../opt/plan/simple/siw/p01.solution > ../../../opt/plan/simple/siw/p01.log
-```
+
+Note that siw and metricff also work, even when they are not listed in the help of plan script.
+Plan-all runs all problems with particular planner.
