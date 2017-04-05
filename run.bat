@@ -1,1 +1,1 @@
-docker run -p 5000:5000 -t pddl
+docker run -p 5000:5000 -t azathoth/pddl

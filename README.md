@@ -125,3 +125,25 @@ Try another solver. Different solvers are verbose for different kinds of errors.
 
 #### Temporal solver runs too long
 Try to set longer duration in frequent actions with short duration. Setting e.g. 0.3 instead of 0.1 to vehicle boarding action makes solving many times faster.
+
+#### Optimal planners can not parse domain or problem file when run from command line
+Probably your files start with BOM. To remove it, run this script:
+```
+#!/bin/bash
+
+# this line removes BOM from all pddl files
+find . -name *.pddl | while read l; do sed -i '1 s/^\xef\xbb\xbf//'  $l; done
+```
+
+#### I can not run siw, because it is not supported by provided plan script
+Run it by this commands:
+```
+cd ~/planners/cloud
+./siw-then-bfsf --domain relative_path_to_domain --problem relative_path_to_problem --output relative_path_to_solution_file > log_file
+```
+DO not forget to provide relative paths to your files.
+For example, for file structure from template and files in /opt/plan directory, and running simple problem, commands are:
+```
+cd ~/planners/cloud
+./siw-then-bfsf --domain ../../../opt/plan/simple/domain.pddl --problem ../../../opt/plan/simple/p01.pddl --output ../../../opt/plan/simple/siw/p01.solution > ../../../opt/plan/simple/siw/p01.log
+```
