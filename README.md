@@ -1,5 +1,7 @@
 # PDDL task - docker Images & FAQ
 
+This repo is for running PDDL solvers in docker, which is very useful when using http://editor.planning.domains/ to writing PDDL, since you can use your local docker solver there.
+
 In this readme, I suggest you to create some simple scripts which helps you with handling the docker container or running the planners.  
 All scripts presented are available this repository, so you can download them from here. 
 
